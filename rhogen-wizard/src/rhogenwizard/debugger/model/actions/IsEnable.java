@@ -2,16 +2,18 @@ package rhogenwizard.debugger.model.actions;
 
 import org.eclipse.debug.core.model.IBreakpoint;
 
-public class IsEnableAction implements IBpAction {
-
+public class IsEnable implements IBpAction
+{
 	@Override
-	public void setBpObjects(IBreakpoint bp) {
+	public void setBpObjects(IBreakpoint bp) 
+	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public boolean isPassed() {
+	public boolean isPassed() 
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}

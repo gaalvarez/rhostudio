@@ -16,6 +16,11 @@ public class BpActionFactory
 		return null;
 	}
 	
+	private static List<IBpAction> createRhoelementsActions()
+	{
+		return createRhodesActions();
+	}
+	
 	public static List<IBpAction> create(IProject project)
 	{
 		return null;
