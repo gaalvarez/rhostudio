@@ -4,13 +4,10 @@ import org.eclipse.debug.core.model.IBreakpoint;
 
 public class IsEnable implements IBpAction
 {
-	@Override
-	public void setBpObjects(IBreakpoint bp) 
+	public IsEnable(IBreakpoint bp)
 	{
-		// TODO Auto-generated method stub
-
 	}
-
+	
 	@Override
 	public boolean isPassed() 
 	{
@@ -18,4 +15,9 @@ public class IsEnable implements IBpAction
 		return false;
 	}
 
+	@Override
+	public boolean checkAction() 
+	{
+		return false;
+	}
 }

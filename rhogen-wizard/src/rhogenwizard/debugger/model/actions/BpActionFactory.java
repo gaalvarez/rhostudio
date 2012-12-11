@@ -1,27 +1,25 @@
 package rhogenwizard.debugger.model.actions;
 
-import java.util.List;
-
 import org.eclipse.core.resources.IProject;
 
 public class BpActionFactory 
 {
-	private static List<IBpAction> createRhodesActions()
+	private static IBpSetter createRhodesActions()
 	{
 		return null;
 	}
 	
-	private static List<IBpAction> createRhoconnectActions()
+	private static IBpSetter createRhoconnectActions()
 	{
 		return null;
 	}
 	
-	private static List<IBpAction> createRhoelementsActions()
+	private static IBpSetter createRhoelementsActions()
 	{
 		return createRhodesActions();
 	}
 	
-	public static List<IBpAction> create(IProject project)
+	public static IBpSetter create(IProject project)
 	{
 		return null;
 	}
