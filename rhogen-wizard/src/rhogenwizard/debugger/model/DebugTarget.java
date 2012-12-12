@@ -48,6 +48,8 @@ import rhogenwizard.debugger.backend.DebugServerException;
 import rhogenwizard.debugger.backend.DebugState;
 import rhogenwizard.debugger.backend.DebugVariableType;
 import rhogenwizard.debugger.backend.IDebugCallback;
+import rhogenwizard.debugger.model.actions.BpActionFactory;
+import rhogenwizard.debugger.model.actions.IBpSetter;
 import rhogenwizard.debugger.model.selector.ResourceNameSelector;
 import rhogenwizard.project.ProjectFactory;
 import rhogenwizard.project.RhoconnectProject;
@@ -278,68 +280,75 @@ public class DebugTarget extends DebugElement implements IDebugTarget, IDebugCal
     }
     
     //TODO - hot fix 
-    private boolean isFunctionDefinition(ScriptLineBreakpoint lineBp)
-    {
-        IFile file = (IFile) lineBp.getResource();
-        
-		try 
-		{
-	    	BufferedReader contentBuffer = new BufferedReader(new InputStreamReader(file.getContents()));
-	    	
-	    	String buf = "";
-    	
-    		for (int i=0; i < lineBp.getLineNumber(); i++)
-    		{
-    			buf = contentBuffer.readLine();
-    		}
-    		
-    		return buf.matches("^\\s*def\\s.*$");
-		} 
-		catch (CoreException e) 
-		{
-			e.printStackTrace();
-		}
-    	catch (IOException e) 
-    	{
-			e.printStackTrace();
-		}	
-		
-		return false;
-    }
+//    private boolean isFunctionDefinition(ScriptLineBreakpoint lineBp)
+//    {
+//        IFile file = (IFile) lineBp.getResource();
+//        
+//		try 
+//		{
+//	    	BufferedReader contentBuffer = new BufferedReader(new InputStreamReader(file.getContents()));
+//	    	
+//	    	String buf = "";
+//    	
+//    		for (int i=0; i < lineBp.getLineNumber(); i++)
+//    		{
+//    			buf = contentBuffer.readLine();
+//    		}
+//    		
+//    		return buf.matches("^\\s*def\\s.*$");
+//		} 
+//		catch (CoreException e) 
+//		{
+//			e.printStackTrace();
+//		}
+//    	catch (IOException e) 
+//    	{
+//			e.printStackTrace();
+//		}	
+//		
+//		return false;
+//    }
 
     public void breakpointAdded(IBreakpoint breakpoint)
     {
-        boolean globalBpEnable = DebugPlugin.getDefault().getBreakpointManager().isEnabled();
-        
-        if (supportsBreakpoint(breakpoint))
-        {
-            try
-            {
-                if (breakpoint.isEnabled() && globalBpEnable)
-                {
-                    ScriptLineBreakpoint lineBr = (ScriptLineBreakpoint) breakpoint;
-
-                    if (!isFunctionDefinition(lineBr))
-                    {
-	                    int    lineNum = lineBr.getLineNumber();
-	                    String srcFile = ResourceNameSelector.getInstance().convertBpName(ProjectFactory.getInstance().typeFromProject(m_debugProject), lineBr);
-	
-	                    m_debugServer.debugBreakpoint(srcFile, lineNum);
-                    }
-                    else
-                    {
-                    	breakpoint.setEnabled(false);
-                    }
-                }
-            }
-            catch (CoreException e)
-            {
-            }
-            catch (BadProjectTagException e)
-            {
-                e.printStackTrace();
-            }
-        }
+    	IBpSetter setter = BpActionFactory.create(m_debugProject, breakpoint, m_debugServer);
+    	
+    	if (setter.checkConditions())
+    	{
+    		setter.setupBreakpoint();
+    	}
+    	
+//        boolean globalBpEnable = DebugPlugin.getDefault().getBreakpointManager().isEnabled();
+//        
+//        if (supportsBreakpoint(breakpoint))
+//        {
+//            try
+//            {
+//                if (breakpoint.isEnabled() && globalBpEnable)
+//                {
+//                    ScriptLineBreakpoint lineBr = (ScriptLineBreakpoint) breakpoint;
+//
+//                    if (!isFunctionDefinition(lineBr))
+//                    {
+//	                    int    lineNum = lineBr.getLineNumber();
+//	                    String srcFile = ResourceNameSelector.getInstance().convertBpName(ProjectFactory.getInstance().typeFromProject(m_debugProject), lineBr);
+//	
+//	                    m_debugServer.debugBreakpoint(srcFile, lineNum);
+//                    }
+//                    else
+//                    {
+//                    	breakpoint.setEnabled(false);
+//                    }
+//                }
+//            }
+//            catch (CoreException e)
+//            {
+//            }
+//            catch (BadProjectTagException e)
+//            {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     public void breakpointRemoved(IBreakpoint breakpoint, IMarkerDelta delta)
