@@ -1,23 +1,32 @@
 package rhogenwizard.debugger.model.actions;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.model.IBreakpoint;
 
-public class IsEnable implements IBpAction
+import rhogenwizard.Activator;
+
+public class IsEnable extends AbstractAction
 {
+	private final IBreakpoint m_bp;
+	
 	public IsEnable(IBreakpoint bp)
 	{
-	}
-	
-	@Override
-	public boolean isPassed() 
-	{
-		// TODO Auto-generated method stub
-		return false;
+		m_bp = bp;
 	}
 
 	@Override
 	public boolean checkAction() 
 	{
-		return false;
+		try 
+		{
+			m_isPassed = m_bp.isEnabled();
+		}
+		catch (CoreException e) 
+		{
+			Activator.logError(e);
+			e.printStackTrace();
+		}
+		
+		return m_isPassed;
 	}
 }
