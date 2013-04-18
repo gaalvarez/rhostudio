@@ -100,7 +100,31 @@
             id="rhogenwizard.wizards.SourceAdapterWizard"
             name="RhoConnect source adapter"> 
       </wizard>
+      
+      <!-- wizzars for rhosync GUS_AL-->
+      
+      <wizard
+            category="RhogenAppWizard"
+            class="rhogenwizard.wizards.rhosync.SourceAdapterWizard"
+            finalPerspective="rhogenwizard.perspectives.RhostudioPerspective"
+            icon="icons/rhomobile.png"
+            id="rhogenwizard.wizards.SourceAdapterRhosyncWizard"
+            name="RhoSync source adapter"> 
+      </wizard>
+      
+	  <wizard
+            category="RhogenAppWizard"
+            class="rhogenwizard.wizards.rhosync.AppWizard"
+            icon="icons/rhomobile.png"
+            id="rhogenwizard.wizards.RhogenRhoSyncAppWizard"
+            name="RhoSync application"
+            project="true"> 
+      </wizard>
+      
    </extension>
+   
+   
+   
    
    <!-- ************************** editors **************************************** -->
    <extension point="org.eclipse.ui.editors">
@@ -161,6 +185,19 @@
          </run>
       </builder>
    </extension>
+   
+   <!-- Builder for rhosync GUS_AL-->
+   <extension point="org.eclipse.core.resources.builders"
+               id="rhosyncBuilder"
+               name="Rhosync Project Builder">
+      <builder
+            hasNature="true"
+            isConfigurable="false">
+         <run
+               class="rhogenwizard.builder.rhosync.Builder">
+         </run>
+      </builder>
+   </extension>
       
    <!-- ************************** natures **************************************** -->
    <extension point="org.eclipse.core.resources.natures"
@@ -195,6 +232,20 @@
       <runtime>
          <run
                class="rhogenwizard.project.nature.RhoelementsNature">
+         </run>
+      </runtime>
+      <builder
+            id="rhogenwizard.builder.RhogenBuilder">
+      </builder>
+    </extension>
+    
+    <!-- Nature for rhosync GUS_AL-->
+    <extension point="org.eclipse.core.resources.natures"
+              id="rhosyncNature"
+              name="Rhosync Project Nature">
+      <runtime>
+         <run
+               class="rhogenwizard.project.nature.RhosyncNature">
          </run>
       </runtime>
       <builder

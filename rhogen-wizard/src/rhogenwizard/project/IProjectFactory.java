@@ -14,6 +14,8 @@ public interface IProjectFactory
 	//
 	IRhomobileProject createProject(Class<? extends IRhomobileProject> projectTag, BuildInfoHolder projectInfo) throws CoreException, AlredyCreatedException, BadProjectTagException, ProjectNotFoundException;
 	//
+	IRhomobileProject createProject(Class<? extends IRhomobileProject> projectTag, rhogenwizard.wizards.rhosync.BuildInfoHolder projectInfo) throws CoreException, ProjectNotFoundException,	AlredyCreatedException, BadProjectTagException;
+	//
 	IRhomobileProject convertFromProject(IProject project) throws BadProjectTagException;
 	//
 	IProject getSelectedProject();
