@@ -273,6 +273,15 @@
 	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
 	    <launchConfigurationTypeImage
 	        icon="icons/rhoconnect_icon16.png"
+	        configTypeID="rhogenwizard.launcher.rhoconnectApp"
+	        id="org.eclipse.jdt.debug.ui.launchConfigurationTypeImage.javaApplet">
+	    </launchConfigurationTypeImage>
+	</extension>
+	
+	<!-- launch images for rhosync GUS_AL-->
+	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+	    <launchConfigurationTypeImage
+	        icon="icons/rhoconnect_icon16.png"
 	        configTypeID="rhogenwizard.launcher.rhosyncApp"
 	        id="org.eclipse.jdt.debug.ui.launchConfigurationTypeImage.javaApplet">
 	    </launchConfigurationTypeImage>
@@ -331,7 +340,7 @@
 	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
 	    <launchConfigurationType
            delegate="rhogenwizard.launcher.rhoconnect.LaunchDelegate"
-           id="rhogenwizard.launcher.rhosyncApp"
+           id="rhogenwizard.launcher.rhoconnectApp"
            modes="run, debug"
            name="RhoConnect Application"
            public="true"
@@ -340,6 +349,19 @@
 	    </launchConfigurationType>
 	</extension>
 
+	<!-- launch configuration for rhosync GUS_AL-->
+	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+	    <launchConfigurationType
+           delegate="rhogenwizard.launcher.rhosync.LaunchDelegate"
+           id="rhogenwizard.launcher.rhosyncApp"
+           modes="run, debug"
+           name="RhoSync Application"
+           public="true"
+           sourceLocatorId="com.rhomobile.rhostudio.sourceLookupDirector_pda"
+           sourcePathComputerId="com.rhomobile.rhostudio.sourcePathComputer_pda">        
+	    </launchConfigurationType>
+	</extension>
+	
     <!-- ************************** launch tabs groups **************************************** -->
     <!-- 
     <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
@@ -369,8 +391,17 @@
     
 	<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
     	<launchConfigurationTabGroup
-        	type="rhogenwizard.launcher.rhosyncApp"
+        	type="rhogenwizard.launcher.rhoconnectApp"
         	class="rhogenwizard.launcher.rhoconnect.TabGroup"
+        	id="rhogenwizard.launcher.rhoconnectApp">
+    	</launchConfigurationTabGroup>
+	</extension>
+	
+	<!-- launch configuration for rhosync GUS_AL-->
+	<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+    	<launchConfigurationTabGroup
+        	type="rhogenwizard.launcher.rhosyncApp"
+        	class="rhogenwizard.launcher.rhosync.TabGroup"
         	id="rhogenwizard.launcher.rhosyncApp">
     	</launchConfigurationTabGroup>
 	</extension>
@@ -441,6 +472,13 @@
              menuGroupId="asd"
              type="new"
              wizardId="rhogenwizard.wizards.SourceAdapterWizard">
+          <enablement></enablement>
+       </commonWizard>
+       
+       <commonWizard
+             menuGroupId="asd"
+             type="new"
+             wizardId="rhogenwizard.wizards.SourceAdapterRhosyncWizard">
           <enablement></enablement>
        </commonWizard>
     </extension>
