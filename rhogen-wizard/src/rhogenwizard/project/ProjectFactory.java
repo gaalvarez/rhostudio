@@ -113,7 +113,7 @@ public class ProjectFactory implements IProjectFactory {
 					desc.setLocation(projectInfo.getAppDirPath());
 				}
 			}
-			desc.setLocation(projectInfo.getAppDirPath());
+			
 			newProject.create(desc, new NullProgressMonitor());
 
 			if (!newProject.isOpen()) {
